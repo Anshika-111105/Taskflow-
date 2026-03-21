@@ -1,0 +1,93 @@
+<svg viewBox="0 0 900 580" xmlns="http://www.w3.org/2000/svg" style="font-family:monospace;background:#0f172a">
+  <!-- Background -->
+  <rect width="900" height="580" fill="#0f172a"/>
+  <text x="450" y="35" text-anchor="middle" fill="#94a3b8" font-size="16" font-weight="bold" font-family="sans-serif">TaskFlow — Entity Relationship Diagram</text>
+
+  <!-- USERS table -->
+  <rect x="30" y="60" width="200" height="200" rx="10" fill="#1e293b" stroke="#4f6ef7" stroke-width="1.5"/>
+  <rect x="30" y="60" width="200" height="34" rx="10" fill="#4f6ef7"/>
+  <rect x="30" y="82" width="200" height="12" fill="#4f6ef7"/>
+  <text x="130" y="83" text-anchor="middle" fill="white" font-size="13" font-weight="bold" font-family="sans-serif">users</text>
+  <line x1="30" y1="94" x2="230" y2="94" stroke="#334155" stroke-width="1"/>
+  <text x="50" y="112" fill="#f59e0b" font-size="11">🔑 id</text><text x="130" y="112" fill="#64748b" font-size="11">INTEGER PK</text>
+  <text x="50" y="130" fill="#94a3b8" font-size="11">   name</text><text x="130" y="130" fill="#64748b" font-size="11">VARCHAR(100)</text>
+  <text x="50" y="148" fill="#94a3b8" font-size="11">   email</text><text x="130" y="148" fill="#64748b" font-size="11">VARCHAR UNIQUE</text>
+  <text x="50" y="166" fill="#94a3b8" font-size="11">   password</text><text x="130" y="166" fill="#64748b" font-size="11">VARCHAR(255)</text>
+  <text x="50" y="184" fill="#94a3b8" font-size="11">   created_at</text><text x="130" y="184" fill="#64748b" font-size="11">TIMESTAMPTZ</text>
+
+  <!-- TASKS table -->
+  <rect x="330" y="60" width="220" height="260" rx="10" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+  <rect x="330" y="60" width="220" height="34" rx="10" fill="#10b981"/>
+  <rect x="330" y="82" width="220" height="12" fill="#10b981"/>
+  <text x="440" y="83" text-anchor="middle" fill="white" font-size="13" font-weight="bold" font-family="sans-serif">tasks</text>
+  <line x1="330" y1="94" x2="550" y2="94" stroke="#334155" stroke-width="1"/>
+  <text x="348" y="112" fill="#f59e0b" font-size="11">🔑 id</text><text x="440" y="112" fill="#64748b" font-size="11">INTEGER PK</text>
+  <text x="348" y="130" fill="#f97316" font-size="11">🔗 user_id</text><text x="440" y="130" fill="#64748b" font-size="11">INTEGER FK</text>
+  <text x="348" y="148" fill="#94a3b8" font-size="11">   title</text><text x="440" y="148" fill="#64748b" font-size="11">VARCHAR(255)</text>
+  <text x="348" y="166" fill="#94a3b8" font-size="11">   description</text><text x="440" y="166" fill="#64748b" font-size="11">TEXT</text>
+  <text x="348" y="184" fill="#94a3b8" font-size="11">   priority</text><text x="440" y="184" fill="#64748b" font-size="11">ENUM</text>
+  <text x="348" y="202" fill="#94a3b8" font-size="11">   status</text><text x="440" y="202" fill="#64748b" font-size="11">ENUM</text>
+  <text x="348" y="220" fill="#94a3b8" font-size="11">   due_date</text><text x="440" y="220" fill="#64748b" font-size="11">TIMESTAMPTZ</text>
+  <text x="348" y="238" fill="#94a3b8" font-size="11">   created_at</text><text x="440" y="238" fill="#64748b" font-size="11">TIMESTAMPTZ</text>
+  <text x="348" y="256" fill="#94a3b8" font-size="11">   updated_at</text><text x="440" y="256" fill="#64748b" font-size="11">TIMESTAMPTZ</text>
+
+  <!-- TASK_HISTORY table -->
+  <rect x="640" y="60" width="230" height="200" rx="10" fill="#1e293b" stroke="#a78bfa" stroke-width="1.5"/>
+  <rect x="640" y="60" width="230" height="34" rx="10" fill="#a78bfa"/>
+  <rect x="640" y="82" width="230" height="12" fill="#a78bfa"/>
+  <text x="755" y="83" text-anchor="middle" fill="white" font-size="13" font-weight="bold" font-family="sans-serif">task_history</text>
+  <line x1="640" y1="94" x2="870" y2="94" stroke="#334155" stroke-width="1"/>
+  <text x="658" y="112" fill="#f59e0b" font-size="11">🔑 id</text><text x="750" y="112" fill="#64748b" font-size="11">INTEGER PK</text>
+  <text x="658" y="130" fill="#f97316" font-size="11">🔗 task_id</text><text x="750" y="130" fill="#64748b" font-size="11">INTEGER FK</text>
+  <text x="658" y="148" fill="#94a3b8" font-size="11">   action_type</text><text x="750" y="148" fill="#64748b" font-size="11">ENUM</text>
+  <text x="658" y="166" fill="#94a3b8" font-size="11">   previous_state</text><text x="750" y="166" fill="#64748b" font-size="11">JSON</text>
+  <text x="658" y="184" fill="#94a3b8" font-size="11">   timestamp</text><text x="750" y="184" fill="#64748b" font-size="11">TIMESTAMPTZ</text>
+
+  <!-- FEEDBACK table -->
+  <rect x="330" y="390" width="220" height="160" rx="10" fill="#1e293b" stroke="#f43f5e" stroke-width="1.5"/>
+  <rect x="330" y="390" width="220" height="34" rx="10" fill="#f43f5e"/>
+  <rect x="330" y="412" width="220" height="12" fill="#f43f5e"/>
+  <text x="440" y="413" text-anchor="middle" fill="white" font-size="13" font-weight="bold" font-family="sans-serif">feedback</text>
+  <line x1="330" y1="424" x2="550" y2="424" stroke="#334155" stroke-width="1"/>
+  <text x="348" y="442" fill="#f59e0b" font-size="11">🔑 id</text><text x="440" y="442" fill="#64748b" font-size="11">INTEGER PK</text>
+  <text x="348" y="460" fill="#f97316" font-size="11">🔗 user_id</text><text x="440" y="460" fill="#64748b" font-size="11">INTEGER FK</text>
+  <text x="348" y="478" fill="#f97316" font-size="11">🔗 task_id</text><text x="440" y="478" fill="#64748b" font-size="11">INTEGER FK (opt)</text>
+  <text x="348" y="496" fill="#94a3b8" font-size="11">   comment</text><text x="440" y="496" fill="#64748b" font-size="11">TEXT</text>
+  <text x="348" y="514" fill="#94a3b8" font-size="11">   rating</text><text x="440" y="514" fill="#64748b" font-size="11">INT (1-5)</text>
+  <text x="348" y="532" fill="#94a3b8" font-size="11">   created_at</text><text x="440" y="532" fill="#64748b" font-size="11">TIMESTAMPTZ</text>
+
+  <!-- Relationship: users → tasks (1:N) -->
+  <line x1="230" y1="145" x2="330" y2="145" stroke="#4f6ef7" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="265" y="138" fill="#4f6ef7" font-size="10">1</text>
+  <text x="310" y="138" fill="#4f6ef7" font-size="10">N</text>
+  <circle cx="330" cy="145" r="3" fill="#4f6ef7"/>
+
+  <!-- Relationship: tasks → task_history (1:N) -->
+  <line x1="550" y1="130" x2="640" y2="130" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="568" y="123" fill="#a78bfa" font-size="10">1</text>
+  <text x="622" y="123" fill="#a78bfa" font-size="10">N</text>
+  <circle cx="640" cy="130" r="3" fill="#a78bfa"/>
+
+  <!-- Relationship: users → feedback (1:N) -->
+  <line x1="130" y1="260" x2="130" y2="360" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="130" y1="360" x2="330" y2="460" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="145" y="310" fill="#f43f5e" font-size="10">1</text>
+  <text x="295" y="452" fill="#f43f5e" font-size="10">N</text>
+  <circle cx="330" cy="460" r="3" fill="#f43f5e"/>
+
+  <!-- Relationship: tasks → feedback (1:N optional) -->
+  <line x1="440" y1="320" x2="440" y2="390" stroke="#f97316" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="450" y="345" fill="#f97316" font-size="10">1</text>
+  <text x="450" y="383" fill="#f97316" font-size="10">N?</text>
+  <circle cx="440" cy="390" r="3" fill="#f97316"/>
+
+  <!-- Legend -->
+  <rect x="30" y="430" width="270" height="120" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="50" y="452" fill="#94a3b8" font-size="11" font-family="sans-serif" font-weight="bold">Legend</text>
+  <text x="50" y="472" fill="#f59e0b" font-size="11">🔑  Primary Key</text>
+  <text x="50" y="490" fill="#f97316" font-size="11">🔗  Foreign Key</text>
+  <line x1="50" y1="508" x2="80" y2="508" stroke="#4f6ef7" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="88" y="512" fill="#94a3b8" font-size="11" font-family="sans-serif">One-to-Many</text>
+  <text x="50" y="532" fill="#64748b" font-size="10" font-family="sans-serif">CASCADE DELETE on user_id/task_id FKs</text>
+  <text x="50" y="546" fill="#64748b" font-size="10" font-family="sans-serif">SET NULL on feedback.task_id FK</text>
+</svg>

@@ -1,0 +1,46 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: taskflow
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://postgres:password@db:5432/taskflow
+      SECRET_KEY: taskflow-super-secret-key-2024-change-in-production-now
+      ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 30
+      REFRESH_TOKEN_EXPIRE_DAYS: 7
+      BACKEND_CORS_ORIGINS: '["http://localhost:5173","http://localhost:3000"]'
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
