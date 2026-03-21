@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { useTasks } from '../../hooks/useTasks'
-import type { Task } from '../../types'
+import type { Priority, Task } from '../../types'
 import { Spinner } from '../ui/Spinner'
 
 interface Props {
@@ -30,7 +30,7 @@ export function TaskForm({ task, onDone }: Props) {
     const payload = {
       title: d.title,
       description: d.description || undefined,
-      priority: d.priority,
+      priority: d.priority as Priority,
       due_date: d.due_date ? new Date(d.due_date).toISOString() : undefined,
     }
     if (task) {

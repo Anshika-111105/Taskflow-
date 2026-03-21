@@ -68,3 +68,10 @@ export interface Feedback {
   rating: number;
   created_at: string;
 }
+export type AuthTokens = AuthToken
+export interface TaskFilters {
+  priority?: Priority
+  status?: Status
+  page?: number
+  page_size?: number
+}
