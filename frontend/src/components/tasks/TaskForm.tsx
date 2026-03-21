@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { useTasks } from '../../hooks/useTasks'
-import type { Priority, Task } from '../../types'
 import { Spinner } from '../ui/Spinner'
+import type { Priority, Task } from '../../types'
 
 interface Props {
   task?: Task
