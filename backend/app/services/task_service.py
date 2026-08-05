@@ -11,7 +11,7 @@ class TaskService:
     def create_task(self, user_id: int, data: TaskCreate):
         return self.repo.create(
             user_id=user_id, title=data.title, description=data.description,
-            priority=data.priority, due_date=data.due_date
+            priority=data.priority, due_date=data.due_date, duration_hours=data.duration_hours
         )
 
     def get_tasks(self, user_id: int, filters: TaskFilter):

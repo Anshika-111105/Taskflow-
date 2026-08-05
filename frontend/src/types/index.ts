@@ -33,6 +33,7 @@ export interface Task {
   priority: Priority
   status: Status
   due_date?: string
+  duration_hours?: number
   created_at: string
   updated_at: string
 }
@@ -52,6 +53,27 @@ export interface TasksResponse {
   page_size: number
 }
 
+export interface DailyTask {
+  id: number
+  title: string
+  description?: string
+  status: Status
+  priority: Priority
+  duration_hours?: number
+  due_date?: string
+}
+
+export interface DailyAnalytics {
+  date: string
+  total_tasks: number
+  completed_tasks: number
+  pending_tasks: number
+  total_hours_planned: number
+  total_hours_completed: number
+  productivity_score: number
+  tasks: DailyTask[]
+}
+
 export interface Analytics {
   total_tasks: number
   completed_tasks: number
@@ -67,6 +89,7 @@ export interface Analytics {
   priority_distribution: { Low: number; Medium: number; High: number }
   productivity_score: number
   daily_chart_data: { date: string; completed: number }[]
+  daily?: DailyAnalytics
 }
 
 export interface Feedback {

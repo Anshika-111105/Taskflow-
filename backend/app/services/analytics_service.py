@@ -84,3 +84,65 @@ class AnalyticsService:
             "productivity_score": productivity_score,
             "daily_chart_data": chart_data,
         }
+
+    def get_daily_analytics(self, user_id: int, target_date_str: str) -> dict:
+        try:
+            target_date = datetime.strptime(target_date_str, "%Y-%m-%d").date()
+        except ValueError:
+            target_date = datetime.now(timezone.utc).date()
+
+        tasks = self.db.query(Task).filter(Task.user_id == user_id).all()
+        
+        day_tasks = []
+        for t in tasks:
+            is_on_day = False
+            if t.due_date and t.due_date.date() == target_date:
+                is_on_day = True
+            elif not t.due_date and t.created_at and t.created_at.date() == target_date:
+                is_on_day = True
+            
+            if is_on_day:
+                day_tasks.append(t)
+                
+        total_count = len(day_tasks)
+        completed = [t for t in day_tasks if t.status == StatusEnum.completed]
+        completed_count = len(completed)
+        pending_count = total_count - completed_count
+        
+        total_hours_planned = sum(t.duration_hours for t in day_tasks if t.duration_hours)
+        total_hours_completed = sum(t.duration_hours for t in completed if t.duration_hours)
+        
+        completion_rate = (completed_count / total_count) if total_count > 0 else 0.0
+        hours_rate = (total_hours_completed / total_hours_planned) if total_hours_planned > 0 else (1.0 if total_count > 0 else 0.0)
+        
+        high_priority = [t for t in day_tasks if t.priority == PriorityEnum.high]
+        high_completed = [t for t in high_priority if t.status == StatusEnum.completed]
+        hp_rate = len(high_completed) / len(high_priority) if high_priority else 1.0
+        
+        if total_count == 0:
+            productivity_score = 0.0
+        else:
+            productivity_score = round((completion_rate * 50) + (hours_rate * 30) + (hp_rate * 20), 1)
+            
+        return {
+            "date": target_date.strftime("%Y-%m-%d"),
+            "total_tasks": total_count,
+            "completed_tasks": completed_count,
+            "pending_tasks": pending_count,
+            "total_hours_planned": round(total_hours_planned, 1),
+            "total_hours_completed": round(total_hours_completed, 1),
+            "productivity_score": productivity_score,
+            "tasks": [
+                {
+                    "id": t.id,
+                    "title": t.title,
+                    "description": t.description,
+                    "status": t.status.value,
+                    "priority": t.priority.value,
+                    "duration_hours": t.duration_hours,
+                    "due_date": t.due_date.isoformat() if t.due_date else None
+                }
+                for t in day_tasks
+            ]
+        }
+

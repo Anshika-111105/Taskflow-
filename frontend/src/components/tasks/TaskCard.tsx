@@ -36,6 +36,12 @@ export function TaskCard({ task }: Props) {
             <div className="flex items-center gap-2 mt-2.5 flex-wrap">
               <PriorityBadge priority={task.priority} />
               <StatusBadge status={task.status} />
+              {task.duration_hours !== undefined && task.duration_hours > 0 && (
+                <span className="flex items-center gap-1 text-xs text-brand-400 bg-brand-500/10 px-2 py-0.5 rounded-full font-medium">
+                  <Clock size={11} />
+                  {task.duration_hours} hr{task.duration_hours !== 1 ? 's' : ''}
+                </span>
+              )}
               {task.due_date && (
                 <span className="flex items-center gap-1 text-xs text-slate-500">
                   <Clock size={11} />

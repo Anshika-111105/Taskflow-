@@ -13,6 +13,7 @@ interface FormData {
   description: string
   priority: string
   due_date: string
+  duration_hours: number
 }
 
 export function TaskForm({ task, onDone }: Props) {
@@ -23,6 +24,7 @@ export function TaskForm({ task, onDone }: Props) {
       description: task?.description ?? '',
       priority: task?.priority ?? 'Medium',
       due_date: task?.due_date ? task.due_date.slice(0, 16) : '',
+      duration_hours: task?.duration_hours ?? 0.0,
     },
   })
 
@@ -32,6 +34,7 @@ export function TaskForm({ task, onDone }: Props) {
       description: d.description || undefined,
       priority: d.priority as Priority,
       due_date: d.due_date ? new Date(d.due_date).toISOString() : undefined,
+      duration_hours: Number(d.duration_hours) || 0.0,
     }
     if (task) {
       await update(task.id, payload)
@@ -60,7 +63,7 @@ export function TaskForm({ task, onDone }: Props) {
           {...register('description')}
         />
       </div>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-3 gap-3">
         <div>
           <label className="text-xs font-medium text-slate-400 mb-1.5 block">Priority</label>
           <select className="input" {...register('priority')}>
@@ -68,6 +71,16 @@ export function TaskForm({ task, onDone }: Props) {
             <option value="Medium">Medium</option>
             <option value="High">High</option>
           </select>
+        </div>
+        <div>
+          <label className="text-xs font-medium text-slate-400 mb-1.5 block">Hours</label>
+          <input
+            type="number"
+            step="0.5"
+            min="0"
+            className="input"
+            {...register('duration_hours', { valueAsNumber: true })}
+          />
         </div>
         <div>
           <label className="text-xs font-medium text-slate-400 mb-1.5 block">Due Date</label>

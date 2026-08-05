@@ -1,10 +1,11 @@
 import { NavLink } from 'react-router-dom'
-import { LayoutDashboard, CheckSquare, BarChart3, LogOut, Zap } from 'lucide-react'
+import { LayoutDashboard, CheckSquare, BarChart3, Calendar, LogOut, Zap } from 'lucide-react'
 import { useAuthStore } from '../../store/auth.store'
 
 const nav = [
   { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
   { to: '/tasks', icon: CheckSquare, label: 'Tasks' },
+  { to: '/daily-planner', icon: Calendar, label: 'Daily Planner' },
   { to: '/analytics', icon: BarChart3, label: 'Analytics' },
 ]
 

@@ -8,7 +8,7 @@ export const taskService = {
   getTask: (id: number) =>
     api.get<Task>(`/tasks/${id}`),
 
-  createTask: (data: { title: string; description?: string; priority?: string; due_date?: string }) =>
+  createTask: (data: { title: string; description?: string; priority?: string; due_date?: string; duration_hours?: number }) =>
     api.post<Task>('/tasks', data),
 
   updateTask: (id: number, data: Partial<Task>) =>

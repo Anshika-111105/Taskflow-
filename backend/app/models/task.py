@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, Enum, JSON, func
+from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, Enum, JSON, Float, func
 from sqlalchemy.orm import relationship
 import enum
 from app.core.database import Base
@@ -29,6 +29,7 @@ class Task(Base):
     priority = Column(Enum(PriorityEnum), default=PriorityEnum.medium, nullable=False)
     status = Column(Enum(StatusEnum), default=StatusEnum.pending, nullable=False)
     due_date = Column(DateTime(timezone=True), nullable=True)
+    duration_hours = Column(Float, nullable=True, default=0.0)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 

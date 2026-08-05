@@ -8,6 +8,7 @@ class TaskCreate(BaseModel):
     description: Optional[str] = None
     priority: PriorityEnum = PriorityEnum.medium
     due_date: Optional[datetime] = None
+    duration_hours: Optional[float] = 0.0
 
 class TaskUpdate(BaseModel):
     title: Optional[str] = None
@@ -15,6 +16,7 @@ class TaskUpdate(BaseModel):
     priority: Optional[PriorityEnum] = None
     status: Optional[StatusEnum] = None
     due_date: Optional[datetime] = None
+    duration_hours: Optional[float] = None
 
 class TaskOut(BaseModel):
     id: int
@@ -24,6 +26,7 @@ class TaskOut(BaseModel):
     priority: PriorityEnum
     status: StatusEnum
     due_date: Optional[datetime]
+    duration_hours: Optional[float] = 0.0
     created_at: datetime
     updated_at: datetime
 

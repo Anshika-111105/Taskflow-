@@ -10,6 +10,7 @@ import TasksPage from './pages/TasksPage'
 import AnalyticsPage from './pages/AnalyticsPage'
 import ForgotPasswordPage from './pages/ForgotPasswordPage'
 import ResetPasswordPage from './pages/ResetPasswordPage'
+import DailyPlannerPage from './pages/DailyPlannerPage'
 
 export default function App() {
   const initFromStorage = useAuthStore((s) => s.initFromStorage)
@@ -26,6 +27,7 @@ export default function App() {
           <Route element={<AppLayout />}>
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/tasks" element={<TasksPage />} />
+            <Route path="/daily-planner" element={<DailyPlannerPage />} />
             <Route path="/analytics" element={<AnalyticsPage />} />
           </Route>
         </Route>

@@ -9,9 +9,9 @@ class TaskRepository:
         self.db = db
 
     def create(self, user_id: int, title: str, description: Optional[str],
-               priority: PriorityEnum, due_date: Optional[datetime]) -> Task:
+               priority: PriorityEnum, due_date: Optional[datetime], duration_hours: Optional[float] = 0.0) -> Task:
         task = Task(user_id=user_id, title=title, description=description,
-                    priority=priority, due_date=due_date)
+                    priority=priority, due_date=due_date, duration_hours=duration_hours)
         self.db.add(task)
         self.db.commit()
         self.db.refresh(task)
@@ -46,7 +46,8 @@ class TaskRepository:
             "title": task.title, "description": task.description,
             "priority": task.priority.value if task.priority else None,
             "status": task.status.value if task.status else None,
-            "due_date": task.due_date.isoformat() if task.due_date else None
+            "due_date": task.due_date.isoformat() if task.due_date else None,
+            "duration_hours": task.duration_hours
         }
         action = ActionTypeEnum.updated
         for key, value in kwargs.items():
