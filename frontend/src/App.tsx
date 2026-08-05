@@ -8,6 +8,8 @@ import RegisterPage  from './pages/RegisterPage'
 import DashboardPage from './pages/DashboardPage'
 import TasksPage from './pages/TasksPage'
 import AnalyticsPage from './pages/AnalyticsPage'
+import ForgotPasswordPage from './pages/ForgotPasswordPage'
+import ResetPasswordPage from './pages/ResetPasswordPage'
 
 export default function App() {
   const initFromStorage = useAuthStore((s) => s.initFromStorage)
@@ -18,6 +20,8 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route element={<ProtectedRoute />}>
           <Route element={<AppLayout />}>
             <Route path="/dashboard" element={<DashboardPage />} />

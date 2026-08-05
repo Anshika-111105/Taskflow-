@@ -45,7 +45,12 @@ export default function LoginPage() {
               {errors.email && <p className="text-xs text-rose-400 mt-1">{errors.email.message}</p>}
             </div>
             <div>
-              <label className="text-xs font-medium text-slate-400 mb-1.5 block">Password</label>
+              <div className="flex justify-between items-center mb-1.5">
+                <label className="text-xs font-medium text-slate-400">Password</label>
+                <Link to="/forgot-password" className="text-xs font-medium text-brand-400 hover:text-brand-300 transition-colors">
+                  Forgot password?
+                </Link>
+              </div>
               <input className="input" type="password" placeholder="••••••••" {...register('password', { required: 'Required' })} />
               {errors.password && <p className="text-xs text-rose-400 mt-1">{errors.password.message}</p>}
             </div>

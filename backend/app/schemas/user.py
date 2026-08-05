@@ -28,3 +28,11 @@ class Token(BaseModel):
 
 class TokenRefresh(BaseModel):
     refresh_token: str
+
+class ForgotPasswordRequest(BaseModel):
+    email: EmailStr
+
+class ResetPasswordRequest(BaseModel):
+    token: str
+    new_password: str
+
