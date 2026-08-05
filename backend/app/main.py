@@ -1,8 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from app.config.settings import settings
 from app.api.routes import auth, tasks, analytics, feedback
-from app.core.database import Base, engine
+from app.core.database import Base, engine, get_db
+from sqlalchemy.orm import Session
+from sqlalchemy import text
 
 # Create tables
 try:
@@ -34,5 +36,30 @@ app.include_router(analytics.router, prefix="/api")
 app.include_router(feedback.router, prefix="/api")
 
 @app.get("/api/health", tags=["Health"])
-def health():
-    return {"status": "ok", "service": "TaskFlow API"}
+def health(db: Session = Depends(get_db)):
+    db_status = "ok"
+    db_error = None
+    try:
+        db.execute(text("SELECT 1"))
+    except Exception as e:
+        db_status = "failed"
+        db_error = str(e)
+    
+    db_url = settings.DATABASE_URL
+    masked_url = "unknown"
+    try:
+        from urllib.parse import urlparse
+        parsed = urlparse(db_url)
+        masked_url = f"{parsed.scheme}://{parsed.hostname or 'unknown'}/{parsed.path.lstrip('/')}"
+    except Exception:
+        pass
+
+    return {
+        "status": "ok" if db_status == "ok" else "error",
+        "service": "TaskFlow API",
+        "database": {
+            "status": db_status,
+            "url": masked_url,
+            "error": db_error
+        }
+    }
