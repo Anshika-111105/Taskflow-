@@ -4,8 +4,8 @@ from typing import List, Any
 import json
 
 class Settings(BaseSettings):
-    DATABASE_URL: str
-    SECRET_KEY: str
+    DATABASE_URL: str = "postgresql://postgres:password@localhost:5432/taskflow"
+    SECRET_KEY: str = "your-super-secret-key-change-in-production-min-32-chars"
     ALGORITHM: str = "HS256"
 
     @field_validator("DATABASE_URL", mode="before")

@@ -5,7 +5,11 @@ from app.api.routes import auth, tasks, analytics, feedback
 from app.core.database import Base, engine
 
 # Create tables
-Base.metadata.create_all(bind=engine)
+try:
+    Base.metadata.create_all(bind=engine)
+except Exception as e:
+    import logging
+    logging.error(f"Failed to create database tables on startup: {e}")
 
 app = FastAPI(
     title="TaskFlow API",
